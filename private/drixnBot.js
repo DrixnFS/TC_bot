@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const BotFunctions = require('../modules/utils/botFunctions.js');
+const donationFunctions = require('../modules/utils/donationFunctions.js');
 const client = new Discord.Client();
 
 
@@ -23,6 +24,7 @@ client.on("ready", () => {
     });
     //Load backup data
     BotFunctions.loadBackup(client);
+    donationFunctions.sendDonationMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
 });
 
 
@@ -47,9 +49,10 @@ client.on('message', msg => {
             console.log('oh shit buddy, member is null...: ', msg);
             return;
         }
+
         //check if the current channell is supported, if so saves it if not set null so bot ignores the commands    
-        const channel = msg.channel.id === process.env['KOS_CHANNEL_ID'] ? msg.channel : null;
-        if(channel){
+        const kos_channel = msg.channel.id === process.env['KOS_CHANNEL_ID'] ? msg.channel : null;
+        if(kos_channel){
             if(msg.member.roles.some(r=>process.env['KOS_ACCESS_ROLES'].split(',').includes(r.id))){
                 //Gets the actual command user wants to invoke
                 const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -58,25 +61,31 @@ client.on('message', msg => {
                     case 'addtokos':
                         if(!args) break;
                             BotFunctions.addToList('kos_list', args);
-                            BotFunctions.sendListMessage(channel);
+                            BotFunctions.sendListMessage(kos_channel);
                         break;
                     case 'editinkos':
                         if(!args) break;
                             BotFunctions.editInList('kos_list', args);
-                            BotFunctions.sendListMessage(channel);
+                            BotFunctions.sendListMessage(kos_channel);
                         break;
                     case 'removefromkos':
                             if(!args) break;
                             BotFunctions.removeFromList('kos_list', args);
-                            BotFunctions.sendListMessage(channel);
+                            BotFunctions.sendListMessage(kos_channel);
                         break;
                     default:
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
                         break;
                 }
             } else {
-                BotFunctions._deleteMessages(channel, 1);
-                channel.send(`> Be gone pleb ${msg.member.user.username}, you have no power here`);
+                BotFunctions._deleteMessages(kos_channel, 1);
+                kos_channel.send(`> Be gone pleb ${msg.member.user.username}, you have no power here`);
+            }
+        }
+        const donation_channel = msg.channel.id === process.env['GOAL_CHANNEL_ID'] ? msg.channel : null;
+        if(donation_channel){
+            if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
+
             }
         }
     } catch(err){
