@@ -91,7 +91,7 @@ const donationFunctions = {
      * @param {*} name 
      * @param {*} args 
      */
-    doDoante: (name, args) =>{
+    doDonate: (name, args) =>{
         const title = name.join(' ').trim();
 
         console.log('title', title);
