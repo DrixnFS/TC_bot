@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 /**
  * whateva boi
  * @namespace
