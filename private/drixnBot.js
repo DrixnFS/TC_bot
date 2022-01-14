@@ -86,7 +86,7 @@ client.on('message', msg => {
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
                 // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
-                const command = args.shift().toLowerCase();
+                const command = (args.shift().toLowerCase()).trim();
                 switch (command){
                     case 'addorder':
                         //.addorder HP potions, wood 10 stacks, stone 10 stacks, cuprum 10 stacks
