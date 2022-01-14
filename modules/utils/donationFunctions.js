@@ -38,7 +38,7 @@ const donationFunctions = {
             }
         }
 
-        const message = `__${title}__\n`;
+        let message = `__${title}__\n`;
         const keys = Object.keys(materials);
         for(let i = 0; i < keys.length; i++){
             message += `${keys[i]}: 0/${materials[keys[i]][1]}${materials[keys[i]][2] ? materials[keys[i]][2] : ''}\n`;
@@ -56,7 +56,7 @@ const donationFunctions = {
      * 
      */
     getOrderMessages: () =>{
-        const compiled_message = '';
+        let compiled_message = '';
         const order_keys = Object.keys(donationFunctions.current_orders);
         for(let i = 0; i < order_keys.length; i++){
             compiled_message += `${donationFunctions.current_orders[order_keys[i]].message}\n`
