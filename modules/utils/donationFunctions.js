@@ -14,6 +14,13 @@ const donationFunctions = {
     sendDonationMessage: (channel) => {
         channel.send(donationFunctions.order_title);
         channel.send(donationFunctions.donor_title);
+    },
+
+    createOrder: (args) =>{
+    // .addorder <title> [item, qty] [item, qty] ... .addorder Guild Keep [wood, 50] [stone, 50]
+
+        console.log('arguments', args)
+
     }
 
 }

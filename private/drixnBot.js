@@ -4,7 +4,6 @@ const donationFunctions = require('../modules/utils/donationFunctions.js');
 const client = new Discord.Client();
 
 
-
 //setup of process variables
 require('dotenv').config({
     path: `${drixnBot.paths.root}/.conf`
@@ -85,7 +84,18 @@ client.on('message', msg => {
         const donation_channel = msg.channel.id === process.env['GOAL_CHANNEL_ID'] ? msg.channel : null;
         if(donation_channel){
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
-
+                const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
+                const command = args.shift().toLowerCase();
+                switch (command){
+                    case 'addorder':
+                        // .addorder <title> [item, qty] [item, qty] ... .addorder Guild Keep [wood, 50] [stone, 50]
+                        if(!args) break;
+                            donationFunctions.createOrder(args);
+                        break;
+                    default: 
+                        console.log(`${msg.author} wanted to call unsupported command ${command}`);
+                        break;
+                }
             }
         }
     } catch(err){
