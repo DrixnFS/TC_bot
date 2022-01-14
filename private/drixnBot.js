@@ -44,7 +44,7 @@ client.on('message', msg => {
         if (msg.content.indexOf(config.prefix) !== 0) return;
         // if user is null for some reason
         if(!msg.member){
-            console.log('oh shit buddy, member is null');
+            console.log('oh shit buddy, member is null...: ', msg);
             return;
         }
         //check if the current channell is supported, if so saves it if not set null so bot ignores the commands    
