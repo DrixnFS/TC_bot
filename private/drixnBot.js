@@ -23,7 +23,8 @@ client.on("ready", () => {
     });
     //Load backup data
     BotFunctions.loadBackup(client);
-    donationFunctions.sendDonationMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+    donationFunctions.sendTitleMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+    donationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
 });
 
 
@@ -91,9 +92,9 @@ client.on('message', msg => {
                 console.log('dafuq', command);
                 switch (command){
                     case 'addorder':
-                        //.addorder HP potions, wood 10 stacks, stone 10 stacks, cuprum 10 stacks
                         if(!args) break;
                             donationFunctions.createOrder(sub_args, args);
+                            donationFunctions.sendDonoMessage(donation_channel);
                         break;
                     default: 
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
