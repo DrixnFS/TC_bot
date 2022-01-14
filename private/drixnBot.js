@@ -24,7 +24,7 @@ client.on("ready", () => {
     //Load backup data
     BotFunctions.loadBackup(client);
     donationFunctions.sendTitleMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
-    donationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+    donationFunctions.sendDonorMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
 });
 
 
@@ -89,7 +89,6 @@ client.on('message', msg => {
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
                 const sub_args = args.shift().split(/ +/g)
                 const command = sub_args.shift().trim().toLowerCase();
-                console.log('dafuq', command);
                 switch (command){
                     case 'addorder':
                         if(!args) break;
