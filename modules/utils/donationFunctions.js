@@ -26,11 +26,7 @@ const donationFunctions = {
             }
         }
 
-        let message = `__${title}__\n`;
-        const keys = Object.keys(materials);
-        for(let i = 0; i < keys.length; i++){
-            message += `${keys[i]}: 0/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? ` ${materials[keys[i]]['unit']}` : ''}\n`;
-        }
+        const message = donationFunctions.__createOrderMessage(title, materials);
 
         donationFunctions.current_orders[title] = {
             'materials': materials,
@@ -38,6 +34,43 @@ const donationFunctions = {
             'message': message
         }
 
+    },
+
+    /**
+     * 
+     */
+    __createOrderMessage: (title, materials) =>{
+        let message = `__${title}__\n`;
+
+        const keys = Object.keys(materials);
+        for(let i = 0; i < keys.length; i++){
+            message += `${keys[i]}: 0/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? ` ${materials[keys[i]]['unit']}` : ''}\n`;
+        }
+
+        return message;
+    },
+
+    /**
+     * 
+     * @param {*} name 
+     * @param {*} args 
+     */
+    editOrder: (name, args) =>{
+        const title = name.join(' ').trim();
+
+        if(donationFunctions.current_orders[title]){
+            for (let i = 0; i < args.length; i++){
+                material = args[i].trim().split(' ');
+                donationFunctions.current_orders[title]['materials'][material[0]] = {
+                    'qty': material[1],
+                    'unit': material[2] ? material[2] : ''
+                }
+            }
+            donationFunctions.current_orders[title]['message'] = donationFunctions.__createOrderMessage(title, donationFunctions.current_orders[title]['materials']);
+        } else {
+            console.log('user is a moron and edits non existent order!');
+            return false;
+        }
     },
 
     /**

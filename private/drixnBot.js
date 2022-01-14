@@ -94,6 +94,11 @@ client.on('message', msg => {
                             donationFunctions.createOrder(sub_args, args);
                             donationFunctions.sendDonoMessage(donation_channel);
                         break;
+                    case 'editorder':
+                        if(!args) break;
+                            donationFunctions.editOrder(sub_args, args);
+                            donationFunctions.sendDonoMessage(donation_channel);
+                        break;
                     default: 
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
                         break;
