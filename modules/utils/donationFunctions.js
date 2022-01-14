@@ -14,18 +14,6 @@ const donationFunctions = {
     order_title: '`Fill Orders:`\n',
     donor_title: '`Donors:`\n',
 
-    /**
-     * 
-     * @param {*} channell 
-     */
-    sendTitleMessage: (channel) => {
-        channel.send(donationFunctions.order_title);
-    },
-
-    sendDonorMessage: (channel) => {
-        channel.send(donationFunctions.donor_title);
-    },
-
     createOrder: (name, args) =>{
     // .addorder <title> [item, qty] [item, qty] ... .addorder Guild Keep [wood, 50] [stone, 50]
         const title = name.join(' ').trim();
@@ -55,8 +43,10 @@ const donationFunctions = {
     /**
      * 
      */
-    getOrderMessages: () =>{
+    getDonationMessage: () =>{
         let compiled_message = '';
+        compiled_message += donationFunctions.order_title;
+        compiled_message += donationFunctions.donor_title;
         const order_keys = Object.keys(donationFunctions.current_orders);
         for(let i = 0; i < order_keys.length; i++){
             compiled_message += `${donationFunctions.current_orders[order_keys[i]].message}\n`
@@ -69,9 +59,7 @@ const donationFunctions = {
      */
     sendDonoMessage: (channel) =>{
         BotFunctions.clearChannell(channel);
-        donationFunctions.sendTitleMessage(channel)
-        channel.send(donationFunctions.getOrderMessages());
-        donationFunctions.sendDonoMessage(channel)
+        channel.send(donationFunctions.getDonationMessage());
     },
 
 }

@@ -23,8 +23,7 @@ client.on("ready", () => {
     });
     //Load backup data
     BotFunctions.loadBackup(client);
-    donationFunctions.sendTitleMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
-    donationFunctions.sendDonorMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+    donationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
 });
 
 
