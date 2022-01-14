@@ -3,7 +3,6 @@ const BotFunctions = require('../modules/utils/botFunctions.js');
 const client = new Discord.Client();
 
 
-
 //setup of process variables
 require('dotenv').config({
     path: `${drixnBot.paths.root}/.conf`
