@@ -22,7 +22,7 @@ const donationFunctions = {
             material = args[i].trim().split(' ');
             materials[material[0]] = {
                 'qty': material[1],
-                'unit': material[2] ? material[2] : False
+                'unit': material[2] ? material[2] : ''
             }
         }
 
@@ -45,12 +45,12 @@ const donationFunctions = {
      */
     getDonationMessage: () =>{
         let compiled_message = '';
-        compiled_message += donationFunctions.order_title;
+        compiled_message += `${donationFunctions.order_title}\n`;
         const order_keys = Object.keys(donationFunctions.current_orders);
         for(let i = 0; i < order_keys.length; i++){
             compiled_message += `${donationFunctions.current_orders[order_keys[i]].message}\n`
         }
-        compiled_message += donationFunctions.donor_title;
+        compiled_message += `${donationFunctions.donor_title}\n`;
         return compiled_message
     },
 
