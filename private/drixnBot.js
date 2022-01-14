@@ -87,6 +87,7 @@ client.on('message', msg => {
                 // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
                 const command = (args.shift().toLowerCase()).trim();
+                console.log('dafuq', command);
                 switch (command){
                     case 'addorder':
                         //.addorder HP potions, wood 10 stacks, stone 10 stacks, cuprum 10 stacks
