@@ -44,7 +44,7 @@ const donationFunctions = {
             message += `${keys[i]}: 0/${materials[keys[i]][1]}${materials[keys[i]][2] ? materials[keys[i]][2] : ''}\n`;
         }
 
-        current_orders[title] = {
+        donationFunctions.current_orders[title] = {
             'materials': materials,
             'donations': {},
             'message': message
