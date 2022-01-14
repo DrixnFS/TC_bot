@@ -20,8 +20,7 @@ const donationFunctions = {
         const materials = {};
         for (let i = 0; i < args.length; i++){
             material = args[i].trim().split(' ');
-            material[0] = material[0].toLowerCase();
-            material_name = material[0][0].toUpperCase() + material[0].slice(1);
+            material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
             materials[material_name] = {
                 'qty': material[1],
                 'unit': material[2] ? material[2] : '',
@@ -54,6 +53,14 @@ const donationFunctions = {
 
     /**
      * 
+     * @param {*} title 
+     */
+    __updateOrderMessage: (title) =>{
+        donationFunctions.current_orders[title]['message'] = donationFunctions.__createOrderMessage(title, donationFunctions.current_orders[title]['materials'])
+    },
+
+    /**
+     * 
      * @param {*} name 
      * @param {*} args 
      */
@@ -63,8 +70,7 @@ const donationFunctions = {
         if(donationFunctions.current_orders[title]){
             for (let i = 0; i < args.length; i++){
                 material = args[i].trim().split(' ');
-                material[0] = material[0].toLowerCase();
-                material_name = material[0][0].toUpperCase() + material[0].slice(1);
+                material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
                 donationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
                     'unit': material[2] ? material[2] : ''
@@ -94,9 +100,32 @@ const donationFunctions = {
     doDonate: (name, args) =>{
         const title = name.join(' ').trim();
 
-        console.log('title', title);
-        console.log('args', args);
+        if(args.length == 1){
+            material = args[0].trim().split(' ');
+            material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
+            user = material[2] ? material[2].toLowerCase()[2].toUpperCase() + material[2].slice(1) : false;
 
+            if(title.length && donationFunctions.current_orders[title]){
+                donationFunctions.current_orders[title]['materials'][material_name]['filled'] += material[1];
+                // const tmp_donation = donationFunctions.current_orders[title]['materials'][material_name]['filled'] + material[1];
+                // if(tmp_donation <= donationFunctions.current_orders[title]['materials'][material_name]['qty']){
+                //     donationFunctions.current_orders[title]['materials'][material_name]['filled'] = tmp_donation
+                // } else {
+                //     donationFunctions.current_orders[title]['materials'][material_name]['filled'] = donationFunctions.current_orders[title]['materials'][material_name]['qty']
+                // }
+                donationFunctions.__updateOrderMessage(title);
+            }
+
+            if(user){
+                if(!donationFunctions.current_donators[user]) donationFunctions.current_donators[user] = {}
+                if(!donationFunctions.current_donators[user][material_name]) donationFunctions.current_donators[user][material_name] = 0
+
+                donationFunctions.current_donators[user][material_name] += material[1]
+            }
+
+        } else {
+            console.log('wrong donate input');
+        }
     },
 
     /**
@@ -110,6 +139,14 @@ const donationFunctions = {
             compiled_message += `${donationFunctions.current_orders[order_keys[i]].message}\n`
         }
         compiled_message += `${donationFunctions.donor_title}\n`;
+        const user_keys = Object.keys(donationFunctions.current_donators);
+        for(let i = 0; i < user_keys.length; i++){
+            compiled_message += `\n__${user}__\n`;
+            const material_keys = Object.keys(donationFunctions.current_donators[user_keys]);
+            for(let l =0; l < material_keys.length; l++){
+                compiled_message += `${donationFunctions.current_donators[user_keys][material_keys[l]]} ${material_keys[l]}\n`;
+            }
+        }
         return compiled_message
     },
 
