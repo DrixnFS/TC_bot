@@ -18,10 +18,10 @@ const donationFunctions = {
         channel.send(donationFunctions.donor_title);
     },
 
-    createOrder: (args) =>{
+    createOrder: (name, args) =>{
     // .addorder <title> [item, qty] [item, qty] ... .addorder Guild Keep [wood, 50] [stone, 50]
 
-        console.log('arguments', args)
+        console.log('name is:', name.join(' '), ' arguments: ', args)
 
     }
 

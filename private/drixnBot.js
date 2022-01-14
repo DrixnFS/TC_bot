@@ -86,13 +86,14 @@ client.on('message', msg => {
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
                 // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
-                const command = args.shift().split(/ +/g)[0].trim().toLowerCase();
+                const sub_args = args.shift().split(/ +/g)
+                const command = sub_args.shift().trim().toLowerCase();
                 console.log('dafuq', command);
                 switch (command){
                     case 'addorder':
                         //.addorder HP potions, wood 10 stacks, stone 10 stacks, cuprum 10 stacks
                         if(!args) break;
-                            donationFunctions.createOrder(args);
+                            donationFunctions.createOrder(sub_args, args);
                         break;
                     default: 
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
