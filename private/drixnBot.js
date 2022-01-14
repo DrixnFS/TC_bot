@@ -86,7 +86,7 @@ client.on('message', msg => {
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
                 // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
-                const command = (args.shift().toLowerCase()).trim();
+                const command = args.shift().split(/ +/g)[0].trim().toLowerCase();
                 console.log('dafuq', command);
                 switch (command){
                     case 'addorder':
