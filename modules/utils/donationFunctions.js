@@ -7,7 +7,7 @@ const BotFunctions = require('./botFunctions')
  * whateva boi
  * @namespace
  */
-const donationFunctions = {
+const DonationFunctions = {
 
     current_orders: {},
     current_donators: {},
@@ -28,9 +28,9 @@ const donationFunctions = {
             }
         }
 
-        const message = donationFunctions.__createOrderMessage(title, materials);
+        const message = DonationFunctions.__createOrderMessage(title, materials);
 
-        donationFunctions.current_orders[title] = {
+        DonationFunctions.current_orders[title] = {
             'materials': materials,
             'message': message
         }
@@ -56,7 +56,7 @@ const donationFunctions = {
      * @param {*} title 
      */
     __updateOrderMessage: (title) =>{
-        donationFunctions.current_orders[title]['message'] = donationFunctions.__createOrderMessage(title, donationFunctions.current_orders[title]['materials'])
+        DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials'])
     },
 
     /**
@@ -67,16 +67,16 @@ const donationFunctions = {
     editOrder: (name, args) =>{
         const title = name.join(' ').trim();
 
-        if(donationFunctions.current_orders[title]){
+        if(DonationFunctions.current_orders[title]){
             for (let i = 0; i < args.length; i++){
                 material = args[i].trim().split(' ');
                 material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
-                donationFunctions.current_orders[title]['materials'][material_name] = {
+                DonationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
                     'unit': material[2] ? material[2] : ''
                 }
             }
-            donationFunctions.current_orders[title]['message'] = donationFunctions.__createOrderMessage(title, donationFunctions.current_orders[title]['materials']);
+            DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials']);
         } else {
             console.log('user is a moron and edits non existent order!');
             return false;
@@ -89,7 +89,7 @@ const donationFunctions = {
      */
     deleteOrder: (name) =>{
         const title = name.join(' ').trim();
-        if(donationFunctions.current_orders[title]) delete donationFunctions.current_orders[title]
+        if(DonationFunctions.current_orders[title]) delete DonationFunctions.current_orders[title]
     },
 
     /**
@@ -103,24 +103,24 @@ const donationFunctions = {
         if(args.length == 1){
             material = args[0].trim().split(' ');
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
-            user = material[2] ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
+            user = material[2].length ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
 
-            if(title.length && donationFunctions.current_orders[title]){
-                donationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
-                // const tmp_donation = donationFunctions.current_orders[title]['materials'][material_name]['filled'] + material[1];
-                // if(tmp_donation <= donationFunctions.current_orders[title]['materials'][material_name]['qty']){
-                //     donationFunctions.current_orders[title]['materials'][material_name]['filled'] = tmp_donation
+            if(title.length && DonationFunctions.current_orders[title]){
+                DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
+                // const tmp_donation = DonationFunctions.current_orders[title]['materials'][material_name]['filled'] + material[1];
+                // if(tmp_donation <= DonationFunctions.current_orders[title]['materials'][material_name]['qty']){
+                //     DonationFunctions.current_orders[title]['materials'][material_name]['filled'] = tmp_donation
                 // } else {
-                //     donationFunctions.current_orders[title]['materials'][material_name]['filled'] = donationFunctions.current_orders[title]['materials'][material_name]['qty']
+                //     DonationFunctions.current_orders[title]['materials'][material_name]['filled'] = DonationFunctions.current_orders[title]['materials'][material_name]['qty']
                 // }
-                donationFunctions.__updateOrderMessage(title);
+                DonationFunctions.__updateOrderMessage(title);
             }
 
             if(user){
-                if(!donationFunctions.current_donators[user]) donationFunctions.current_donators[user] = {}
-                if(!donationFunctions.current_donators[user][material_name]) donationFunctions.current_donators[user][material_name] = 0
+                if(!DonationFunctions.current_donators[user]) DonationFunctions.current_donators[user] = {}
+                if(!DonationFunctions.current_donators[user][material_name]) DonationFunctions.current_donators[user][material_name] = 0
 
-                donationFunctions.current_donators[user][material_name] += parseInt(material[1])
+                DonationFunctions.current_donators[user][material_name] += parseInt(material[1])
             }
 
         } else {
@@ -133,18 +133,18 @@ const donationFunctions = {
      */
     getDonationMessage: () =>{
         let compiled_message = '';
-        compiled_message += `${donationFunctions.order_title}\n`;
-        const order_keys = Object.keys(donationFunctions.current_orders);
+        compiled_message += `${DonationFunctions.order_title}\n`;
+        const order_keys = Object.keys(DonationFunctions.current_orders);
         for(let i = 0; i < order_keys.length; i++){
-            compiled_message += `${donationFunctions.current_orders[order_keys[i]].message}\n`
+            compiled_message += `${DonationFunctions.current_orders[order_keys[i]].message}\n`
         }
-        compiled_message += `${donationFunctions.donor_title}\n`;
-        const user_keys = Object.keys(donationFunctions.current_donators);
+        compiled_message += `${DonationFunctions.donor_title}\n`;
+        const user_keys = Object.keys(DonationFunctions.current_donators);
         for(let i = 0; i < user_keys.length; i++){
             compiled_message += `__${user}__\n`;
-            const material_keys = Object.keys(donationFunctions.current_donators[user_keys]);
+            const material_keys = Object.keys(DonationFunctions.current_donators[user_keys[i]]);
             for(let l =0; l < material_keys.length; l++){
-                compiled_message += `${donationFunctions.current_donators[user_keys][material_keys[l]]} ${material_keys[l]}\n`;
+                compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]} ${material_keys[l]}\n`;
             }
         }
         return compiled_message
@@ -155,9 +155,9 @@ const donationFunctions = {
      */
     sendDonoMessage: (channel) =>{
         BotFunctions.clearChannell(channel);
-        channel.send(donationFunctions.getDonationMessage());
+        channel.send(DonationFunctions.getDonationMessage());
     },
 
 }
 
-module.exports = donationFunctions;
+module.exports = DonationFunctions;

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const BotFunctions = require('../modules/utils/botFunctions.js');
-const donationFunctions = require('../modules/utils/donationFunctions.js');
+const DonationFunctions = require('../modules/utils/donationFunctions.js');
 const client = new Discord.Client();
 
 
@@ -23,7 +23,7 @@ client.on("ready", () => {
     });
     //Load backup data
     BotFunctions.loadBackup(client);
-    donationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+    DonationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
 });
 
 
@@ -91,23 +91,23 @@ client.on('message', msg => {
                 switch (command){
                     case 'addorder':
                         if(!args) break;
-                            donationFunctions.createOrder(sub_args, args);
-                            donationFunctions.sendDonoMessage(donation_channel);
+                            DonationFunctions.createOrder(sub_args, args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'editorder':
                         if(!args) break;
-                            donationFunctions.editOrder(sub_args, args);
-                            donationFunctions.sendDonoMessage(donation_channel);
+                            DonationFunctions.editOrder(sub_args, args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'deleteorder':
                         if(!args) break;
-                            donationFunctions.deleteOrder(sub_args);
-                            donationFunctions.sendDonoMessage(donation_channel);
+                            DonationFunctions.deleteOrder(sub_args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'donate':
                         if(!args) break;
-                            donationFunctions.doDonate(sub_args, args);
-                            donationFunctions.sendDonoMessage(donation_channel);
+                            DonationFunctions.doDonate(sub_args, args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     default: 
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
