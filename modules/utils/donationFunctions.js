@@ -77,6 +77,11 @@ const donationFunctions = {
         }
     },
 
+    deleteOrder: (name) =>{
+        const title = name.join(' ').trim();
+        if(donationFunctions.current_orders[title]) delete donationFunctions.current_orders[title]
+    },
+
     /**
      * 
      */
