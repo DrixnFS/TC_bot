@@ -10,12 +10,12 @@ const BotFunctions = require('./botFunctions')
 const donationFunctions = {
 
     current_orders: {},
+    current_donators: {},
 
     order_title: '`Fill Orders:`\n',
     donor_title: '`Donors:`\n',
 
     createOrder: (name, args) =>{
-    // .addorder <title> [item, qty] [item, qty] ... .addorder Guild Keep [wood, 50] [stone, 50]
         const title = name.join(' ').trim();
         const materials = {};
         for (let i = 0; i < args.length; i++){
@@ -24,7 +24,8 @@ const donationFunctions = {
             material_name = material[0][0].toUpperCase() + material[0].slice(1);
             materials[material_name] = {
                 'qty': material[1],
-                'unit': material[2] ? material[2] : ''
+                'unit': material[2] ? material[2] : '',
+                'filled': 0
             }
         }
 
@@ -32,7 +33,6 @@ const donationFunctions = {
 
         donationFunctions.current_orders[title] = {
             'materials': materials,
-            'donations': {},
             'message': message
         }
 
@@ -46,7 +46,7 @@ const donationFunctions = {
 
         const keys = Object.keys(materials);
         for(let i = 0; i < keys.length; i++){
-            message += `${keys[i]}: 0/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? ` ${materials[keys[i]]['unit']}` : ''}\n`;
+            message += `${keys[i]}: ${materials[keys[i]]['filled']}/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? ` ${materials[keys[i]]['unit']}` : ''}\n`;
         }
 
         return message;
@@ -77,9 +77,26 @@ const donationFunctions = {
         }
     },
 
+    /**
+     * 
+     * @param {*} name 
+     */
     deleteOrder: (name) =>{
         const title = name.join(' ').trim();
         if(donationFunctions.current_orders[title]) delete donationFunctions.current_orders[title]
+    },
+
+    /**
+     * 
+     * @param {*} name 
+     * @param {*} args 
+     */
+    doDoante: (name, args) =>{
+        const title = name.join(' ').trim();
+
+        console.log('title', title);
+        console.log('args', args);
+
     },
 
     /**
