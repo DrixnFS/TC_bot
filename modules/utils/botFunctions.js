@@ -17,6 +17,7 @@ const BotFunctions = {
     \n 4. Line that starts with + and is green means player is BLUE. Line starting with - and is red means player is RED
     \n 5. For parameter status you can type 'yes' or 'y' if player is red, if he is blue just type 'no' or 'n'
     \n 6. You can also use 'red' as status for red players and 'blue' status for blue players
+    \n Example: .addtokos Peaceleaf red TC
     \n©DrixnGG & Peaceleaf 2021\`\`\``,
 
     /**

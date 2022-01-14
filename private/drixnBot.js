@@ -3,6 +3,7 @@ const BotFunctions = require('../modules/utils/botFunctions.js');
 const client = new Discord.Client();
 
 
+
 //setup of process variables
 require('dotenv').config({
     path: `${drixnBot.paths.root}/.conf`
@@ -41,9 +42,14 @@ client.on('message', msg => {
         if (msg.author.bot) return;
         // Ignores messages without our prefix
         if (msg.content.indexOf(config.prefix) !== 0) return;
+        // if user is null for some reason
+        if(!msg.member){
+            console.log('oh shit buddy, member is null');
+            return;
+        }
         //check if the current channell is supported, if so saves it if not set null so bot ignores the commands    
-        const kos_channel = msg.channel.id === process.env['KOS_CHANNEL_ID'] ? msg.channel : null;
-        if(kos_channel){
+        const channel = msg.channel.id === process.env['KOS_CHANNEL_ID'] ? msg.channel : null;
+        if(channel){
             if(msg.member.roles.some(r=>process.env['KOS_ACCESS_ROLES'].split(',').includes(r.id))){
                 //Gets the actual command user wants to invoke
                 const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
@@ -52,24 +58,24 @@ client.on('message', msg => {
                     case 'addtokos':
                         if(!args) break;
                             BotFunctions.addToList('kos_list', args);
-                            BotFunctions.sendListMessage(kos_channel);
+                            BotFunctions.sendListMessage(channel);
                         break;
                     case 'editinkos':
                         if(!args) break;
                             BotFunctions.editInList('kos_list', args);
-                            BotFunctions.sendListMessage(kos_channel);
+                            BotFunctions.sendListMessage(channel);
                         break;
                     case 'removefromkos':
                             if(!args) break;
                             BotFunctions.removeFromList('kos_list', args);
-                            BotFunctions.sendListMessage(kos_channel);
+                            BotFunctions.sendListMessage(channel);
                         break;
                     default:
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
                         break;
                 }
             } else {
-                BotFunctions._deleteMessages(kos_channel, 1);
+                BotFunctions._deleteMessages(channel, 1);
                 channel.send(`> Be gone pleb ${msg.member.user.username}, you have no power here`);
             }
         }
