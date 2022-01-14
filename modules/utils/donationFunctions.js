@@ -41,7 +41,7 @@ const donationFunctions = {
         let message = `__${title}__\n`;
         const keys = Object.keys(materials);
         for(let i = 0; i < keys.length; i++){
-            message += `${keys[i]}: 0/${materials[keys[i]][1]}${materials[keys[i]][2] ? materials[keys[i]][2] : ''}\n`;
+            message += `${keys[i]}: 0/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? materials[keys[i]]['unit'] : ''}\n`;
         }
 
         donationFunctions.current_orders[title] = {
