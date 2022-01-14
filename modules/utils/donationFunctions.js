@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const BotFunctions = require('../modules/utils/botFunctions.js');
+const BotFunctions = require('./botFunctions')
 
 
 /**
