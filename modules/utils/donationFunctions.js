@@ -20,7 +20,9 @@ const donationFunctions = {
         const materials = {};
         for (let i = 0; i < args.length; i++){
             material = args[i].trim().split(' ');
-            materials[material[0]] = {
+            material[0] = material[0].toLowerCase();
+            material_name = material[0][0].toUpperCase() + material[0].slice(1);
+            materials[material_name] = {
                 'qty': material[1],
                 'unit': material[2] ? material[2] : ''
             }
@@ -61,7 +63,9 @@ const donationFunctions = {
         if(donationFunctions.current_orders[title]){
             for (let i = 0; i < args.length; i++){
                 material = args[i].trim().split(' ');
-                donationFunctions.current_orders[title]['materials'][material[0]] = {
+                material[0] = material[0].toLowerCase();
+                material_name = material[0][0].toUpperCase() + material[0].slice(1);
+                donationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
                     'unit': material[2] ? material[2] : ''
                 }
