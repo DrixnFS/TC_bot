@@ -85,7 +85,7 @@ client.on('message', msg => {
         if(donation_channel){
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
                 // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
-                const args = (msg.content.slice(config.prefix.length).trim().split(',')).trim()
+                const args = msg.content.slice(config.prefix.length).trim().split(',')
                 const command = args.shift().toLowerCase();
                 switch (command){
                     case 'addorder':
