@@ -103,7 +103,7 @@ const DonationFunctions = {
         if(args.length == 1){
             material = args[0].trim().split(' ');
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
-            user = material[2].length ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
+            user = material[2] ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
 
             if(title.length && DonationFunctions.current_orders[title]){
                 DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
