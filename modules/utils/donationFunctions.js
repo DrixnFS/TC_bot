@@ -105,7 +105,8 @@ const DonationFunctions = {
         if(args.length == 1){
             material = args[0].trim().split(' ');
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
-            user = material[2] ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
+            is_stack = material[2] && material[2].toLowerCase() == 'yes' ? true : false;
+            user = material[3] ? material[3].toLowerCase()[0].toUpperCase() + material[3].slice(1) : false;
 
             if(title.length && DonationFunctions.current_orders[title] && DonationFunctions.current_orders[title]['materials'][material_name]){
                 DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
@@ -120,9 +121,13 @@ const DonationFunctions = {
 
             if(user){
                 if(!DonationFunctions.current_donators[user]) DonationFunctions.current_donators[user] = {}
-                if(!DonationFunctions.current_donators[user][material_name]) DonationFunctions.current_donators[user][material_name] = 0
+                if(!DonationFunctions.current_donators[user][material_name]) DonationFunctions.current_donators[user][material_name] = {
+                    'stacks': 0,
+                    'raw': 0
+                }
 
-                DonationFunctions.current_donators[user][material_name] += parseInt(material[1])
+                const key = is_stack ? 'stacks' : 'raw';
+                DonationFunctions.current_donators[user][material_name][key] += parseInt(material[1])
             }
 
         } else {
@@ -146,7 +151,12 @@ const DonationFunctions = {
             compiled_message += `__${user_keys[i]}__\n`;
             const material_keys = Object.keys(DonationFunctions.current_donators[user_keys[i]]);
             for(let l =0; l < material_keys.length; l++){
-                compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]} ${material_keys[l]}\n`;
+                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']){
+                    compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
+                }
+                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']) {
+                    compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
+                }
             }
             compiled_message += '\n';
         }
