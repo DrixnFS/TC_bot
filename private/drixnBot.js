@@ -85,7 +85,6 @@ client.on('message', msg => {
         const donation_channel = msg.channel.id === process.env['GOAL_CHANNEL_ID'] ? msg.channel : null;
         if(donation_channel){
             if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
-                // const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
                 const sub_args = args.shift().split(/ +/g)
                 const command = sub_args.shift().trim().toLowerCase();
@@ -106,7 +105,7 @@ client.on('message', msg => {
                         break;
                     case 'donate':
                         if(!args) break;
-                            DonationFunctions.doDonate(sub_args, args);
+                            DonationFunctions.doDonate(sub_args, args, donation_channel);
                             DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'editdonate':

@@ -121,7 +121,11 @@ const DonationFunctions = {
      */
     deleteOrder: (name) =>{
         const title = name.join(' ').trim();
-        if(DonationFunctions.current_orders[title]) delete DonationFunctions.current_orders[title]
+        if(DonationFunctions.current_orders[title]) {
+            delete DonationFunctions.current_orders[title]
+        } else {
+            DonationFunctions.sendErrorMessage(channel, `Cannot delete non existent order: ${title} !!!`);
+        }
     },
 
     /**
@@ -129,7 +133,7 @@ const DonationFunctions = {
      * @param {*} name 
      * @param {*} args 
      */
-    doDonate: (name, args) =>{
+    doDonate: (name, args, channel) =>{
         const title = name.join(' ').trim();
 
         if(args.length == 1){
@@ -138,13 +142,20 @@ const DonationFunctions = {
             is_stack = material[2] && material[2].toLowerCase() == 'yes' ? true : false;
             user = material[3] ? material[3].toLowerCase()[0].toUpperCase() + material[3].slice(1) : false;
 
-            if(title.length && DonationFunctions.current_orders[title] && DonationFunctions.current_orders[title]['materials'][material_name]){
-                if(DonationFunctions.current_orders[title]['materials'][material_name]['is_stack'] == is_stack) {
-                    DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseFloat(material[1]);
+            if(title.length && DonationFunctions.current_orders[title]){
+                if(DonationFunctions.current_orders[title]['materials'][material_name]){
+                    if(DonationFunctions.current_orders[title]['materials'][material_name]['is_stack'] == is_stack) {
+                        DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseFloat(material[1]);
+                    } else {
+                        DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} MUST BE the same type as the Order dictates (stack or no stack)`);
+                        return false;
+                    }
+                    
                 } else {
-                    //TODO: send user message that this wont work cause order expects same type, stack or no stack
+                    DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} is not accepted by the Order`);
+                    return false;
                 }
-                DonationFunctions.__updateOrderMessage(title);
+              DonationFunctions.__updateOrderMessage(title);
             }
 
             if(user){
