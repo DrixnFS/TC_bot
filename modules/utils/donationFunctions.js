@@ -148,13 +148,13 @@ const DonationFunctions = {
                     if(DonationFunctions.current_orders[title]['materials'][material_name]['is_stack'] == is_stack) {
                         DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseFloat(material[1]);
                     } else {
-                        DonationFunctions.sendDonoMessage(donation_channel);
+                        DonationFunctions.sendDonoMessage(channel);
                         DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} MUST BE the same type as the Order dictates (stack or no stack)`);
                         return false;
                     }
                     
                 } else {
-                    DonationFunctions.sendDonoMessage(donation_channel);
+                    DonationFunctions.sendDonoMessage(channel);
                     DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} is not accepted by the Order`);
                     return false;
                 }
