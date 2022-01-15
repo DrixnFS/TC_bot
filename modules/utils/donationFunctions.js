@@ -176,6 +176,8 @@ const DonationFunctions = {
             DonationFunctions.sendDonoMessage(channel);
         } else {
             console.log('wrong donate input');
+            DonationFunctions.sendDonoMessage(channel);
+            DonationFunctions.sendErrorMessage(channel, `Donate only accepts one material!`);
         }
     },
 
