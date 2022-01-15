@@ -123,6 +123,9 @@ client.on('message', msg => {
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
                         break;
                 }
+            } else {
+                BotFunctions._deleteMessages(donation_channel, 1);
+                donation_channel.send(`> Be gone pleb ${msg.member.user.username}, you have no power here`);
             }
         }
     } catch(err){
