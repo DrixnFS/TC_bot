@@ -220,9 +220,15 @@ const DonationFunctions = {
     /**
      * 
      */
-    deleteDonate: (name) =>{
+    deleteDonate: (name, channel) =>{
         const user_name = name.join(' ').trim();
-        if(DonationFunctions.current_donators[user_name]) delete  DonationFunctions.current_donators[user_name]
+        if(DonationFunctions.current_donators[user_name]) {
+            delete  DonationFunctions.current_donators[user_name]
+            DonationFunctions.sendDonoMessage(channel);
+        } else {
+            DonationFunctions.sendDonoMessage(channel);
+            DonationFunctions.sendErrorMessage(channel, `Cannot delete non existent Donator: ${user_name}`);
+        }
     },
 
     /**
