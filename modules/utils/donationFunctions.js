@@ -268,7 +268,7 @@ const DonationFunctions = {
     },
 
     sendErrorMessage: (channel, string) => {
-        channel.send(`\n\`\`\`diff\n- ${string} \`\`\``);
+        channel.send(`\n\n\`\`\`diff\n- ${string} \`\`\``);
     },
 
 }
