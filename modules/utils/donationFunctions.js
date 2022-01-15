@@ -168,10 +168,10 @@ const DonationFunctions = {
             compiled_message += `__${user_keys[i]}__\n`;
             const material_keys = Object.keys(DonationFunctions.current_donators[user_keys[i]]);
             for(let l =0; l < material_keys.length; l++){
-                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']){
+                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] > 0){
                     compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
                 }
-                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']) {
+                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] > 0) {
                     compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
                 }
             }
