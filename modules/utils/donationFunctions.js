@@ -81,7 +81,7 @@ const DonationFunctions = {
         } else {
             console.log('user is a moron and edits non existent order!');
             DonationFunctions.sendDonoMessage(channel);
-            DonationFunctions.sendErrorMessage(`Cannot edit non existent order: ${title} !!!`);
+            DonationFunctions.sendErrorMessage(channel, `Cannot edit non existent order: ${title} !!!`);
             return false;
         }
     },
