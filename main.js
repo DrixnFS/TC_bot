@@ -11,5 +11,4 @@ const DonationFunctions = require('./modules/utils/donationFunctions.js');
 setInterval(function(){
     BotFunctions.saveListIntoFile('kos_list');
     DonationFunctions.saveDonationIntoFile();
-}, 30000);
-//600000
+}, 600000);

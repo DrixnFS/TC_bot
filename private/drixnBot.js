@@ -97,7 +97,7 @@ client.on('message', msg => {
                         break;
                     case 'editorder':
                         if(!args) break;
-                            DonationFunctions.editOrder(sub_args, args);
+                            DonationFunctions.editOrder(sub_args, args, donation_channel);
                             DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'deleteorder':

@@ -63,7 +63,7 @@ const DonationFunctions = {
      * @param {*} name 
      * @param {*} args 
      */
-    editOrder: (name, args) =>{
+    editOrder: (name, args, channel) =>{
         const title = name.join(' ').trim();
 
         if(DonationFunctions.current_orders[title]){
@@ -80,6 +80,7 @@ const DonationFunctions = {
             DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials']);
         } else {
             console.log('user is a moron and edits non existent order!');
+            channel.send(`\`\`\`diff - ! Cannot edit non existent order: ${title} ! \`\`\``);
             return false;
         }
     },
