@@ -111,9 +111,14 @@ client.on('message', msg => {
                         break;
                     case 'editdonate':
                         if(!args) break;
-                        DonationFunctions.editDonate(sub_args, args);
-                        DonationFunctions.sendDonoMessage(donation_channel);
-                    break;
+                            DonationFunctions.editDonate(sub_args, args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
+                        break;
+                    case 'deletedonate':
+                        if(!args) break;
+                            DonationFunctions.deleteDonate(sub_args);
+                            DonationFunctions.sendDonoMessage(donation_channel);
+                        break;
                     default: 
                         console.log(`${msg.author} wanted to call unsupported command ${command}`);
                         break;

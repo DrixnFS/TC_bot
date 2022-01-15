@@ -147,9 +147,17 @@ const DonationFunctions = {
 
             if(user_name && DonationFunctions.current_donators[user_name]) {
                 const key = is_stack ? 'stacks' : 'raw';
-                DonationFunctions.current_donators[user_name][material_name][key] = material[1]
+                DonationFunctions.current_donators[user_name][material_name][key] = parseFloat(material[1])
             }
         }
+    },
+
+    /**
+     * 
+     */
+    deleteDonate: (name) =>{
+        const user_name = name.join(' ').trim();
+        if(DonationFunctions.current_donators[user_name]) delete  DonationFunctions.current_donators[user_name]
     },
 
     /**
