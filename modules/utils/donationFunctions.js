@@ -78,6 +78,7 @@ const DonationFunctions = {
                 }
             }
             DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials']);
+            DonationFunctions.sendDonoMessage(channel);
         } else {
             console.log('user is a moron and edits non existent order!');
             DonationFunctions.sendDonoMessage(channel);
@@ -123,6 +124,7 @@ const DonationFunctions = {
         const title = name.join(' ').trim();
         if(DonationFunctions.current_orders[title]) {
             delete DonationFunctions.current_orders[title]
+            DonationFunctions.sendDonoMessage(channel);
         } else {
             DonationFunctions.sendDonoMessage(channel);
             DonationFunctions.sendErrorMessage(channel, `Cannot delete non existent order: ${title} !!!`);
@@ -171,7 +173,7 @@ const DonationFunctions = {
                 const key = is_stack ? 'stacks' : 'raw';
                 DonationFunctions.current_donators[user][material_name][key] += parseFloat(material[1])
             }
-
+            DonationFunctions.sendDonoMessage(channel);
         } else {
             console.log('wrong donate input');
         }
