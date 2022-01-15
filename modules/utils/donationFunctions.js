@@ -119,7 +119,7 @@ const DonationFunctions = {
      * 
      * @param {*} name 
      */
-    deleteOrder: (name) =>{
+    deleteOrder: (name, channel) =>{
         const title = name.join(' ').trim();
         if(DonationFunctions.current_orders[title]) {
             delete DonationFunctions.current_orders[title]

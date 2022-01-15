@@ -100,7 +100,7 @@ client.on('message', msg => {
                         break;
                     case 'deleteorder':
                         if(!args) break;
-                            DonationFunctions.deleteOrder(sub_args);
+                            DonationFunctions.deleteOrder(sub_args, channel);
                             DonationFunctions.sendDonoMessage(donation_channel);
                         break;
                     case 'donate':
