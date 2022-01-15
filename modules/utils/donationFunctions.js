@@ -154,7 +154,7 @@ const DonationFunctions = {
                 if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']){
                     compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
                 }
-                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']) {
+                if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']) {
                     compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
                 }
             }
