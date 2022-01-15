@@ -80,7 +80,8 @@ const DonationFunctions = {
             DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials']);
         } else {
             console.log('user is a moron and edits non existent order!');
-            channel.send(`\`\`\`diff - ! Cannot edit non existent order: ${title} ! \`\`\``);
+            DonationFunctions.sendDonoMessage(channel);
+            channel.send(`\`\`\`diff -!Cannot edit non existent order: ${title} ! \`\`\``);
             return false;
         }
     },
