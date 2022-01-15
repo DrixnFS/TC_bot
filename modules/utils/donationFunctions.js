@@ -110,7 +110,7 @@ const DonationFunctions = {
 
             if(title.length && DonationFunctions.current_orders[title] && DonationFunctions.current_orders[title]['materials'][material_name]){
                 if(DonationFunctions.current_orders[title]['materials'][material_name]['is_stack'] == is_stack) {
-                    DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
+                    DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseFloat(material[1]);
                 } else {
                     //TODO: send user message that this wont work cause order expects same type, stack or no stack
                 }
@@ -125,7 +125,7 @@ const DonationFunctions = {
                 }
 
                 const key = is_stack ? 'stacks' : 'raw';
-                DonationFunctions.current_donators[user][material_name][key] += parseInt(material[1])
+                DonationFunctions.current_donators[user][material_name][key] += parseFloat(material[1])
             }
 
         } else {
