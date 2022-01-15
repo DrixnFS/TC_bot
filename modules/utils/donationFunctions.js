@@ -23,7 +23,7 @@ const DonationFunctions = {
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
             materials[material_name] = {
                 'qty': material[1],
-                'unit': material[2] ? material[2] : '',
+                'is_stack': material[2] ? material[2] : false,
                 'filled': 0
             }
         }
@@ -45,7 +45,7 @@ const DonationFunctions = {
 
         const keys = Object.keys(materials);
         for(let i = 0; i < keys.length; i++){
-            message += `${keys[i]}: ${materials[keys[i]]['filled']}/${materials[keys[i]]['qty']}${materials[keys[i]]['unit'] ? ` ${materials[keys[i]]['unit']}` : ''}\n`;
+            message += `${keys[i]}: ${materials[keys[i]]['filled']}/${materials[keys[i]]['qty']}${materials[keys[i]]['is_stack'] ? ` Stacks` : ''}\n`;
         }
 
         return message;
@@ -73,7 +73,7 @@ const DonationFunctions = {
                 material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
                 DonationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
-                    'unit': material[2] ? material[2] : ''
+                    'is_stack': material[2] ? material[2] : false
                 }
             }
             DonationFunctions.current_orders[title]['message'] = DonationFunctions.__createOrderMessage(title, DonationFunctions.current_orders[title]['materials']);
