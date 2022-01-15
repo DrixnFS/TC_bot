@@ -198,13 +198,18 @@ const DonationFunctions = {
 
             if(user_name && DonationFunctions.current_donators[user_name]) {
                 const key = is_stack ? 'stacks' : 'raw';
-                DonationFunctions.current_donators[user_name][material_name][key] = parseFloat(material[1])
+                if(DonationFunctions.current_donators[user_name][material_name]) {
+                    DonationFunctions.current_donators[user_name][material_name][key] = parseFloat(material[1]);
+                    DonationFunctions.sendDonoMessage(channel);
+                } else {
+                    DonationFunctions.sendDonoMessage(channel);
+                    DonationFunctions.sendErrorMessage(channel, `Cannot edit Material ${material_name} because ${user_name} have not donated it yet. Use .donate instead`);
+                }
             } else {
                 console.log('editing non existent user');
                 DonationFunctions.sendDonoMessage(channel);
                 DonationFunctions.sendErrorMessage(channel, `User ${user_name} is not part of Donation list yet`);
             }
-            DonationFunctions.sendDonoMessage(channel);
         } else {
             console.log('wrong edit donate input');
             DonationFunctions.sendDonoMessage(channel);
