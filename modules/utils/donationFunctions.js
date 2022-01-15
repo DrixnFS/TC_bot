@@ -23,7 +23,7 @@ const DonationFunctions = {
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
             materials[material_name] = {
                 'qty': material[1],
-                'is_stack': material[2].toLowerCase() == 'yes' ? true : false,
+                'is_stack': material[2] && material[2].toLowerCase() == 'yes' ? true : false,
                 'filled': 0
             }
         }
@@ -74,7 +74,7 @@ const DonationFunctions = {
                 const already_filled = DonationFunctions.current_orders[title]['materials'][material_name]['filled'] ? DonationFunctions.current_orders[title]['materials'][material_name] : 0;
                 DonationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
-                    'is_stack': material[2].toLowerCase() == 'yes' ? true : false,
+                    'is_stack': material[2] && material[2].toLowerCase() == 'yes' ? true : false,
                     'filled': already_filled
                 }
             }
