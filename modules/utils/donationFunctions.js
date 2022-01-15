@@ -70,6 +70,9 @@ const DonationFunctions = {
             for (let i = 0; i < args.length; i++){
                 material = args[i].trim().split(' ');
                 material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
+                if(!DonationFunctions.current_orders[title]['materials'][material_name]){
+                    DonationFunctions.current_orders[title]['materials'][material_name] = {}
+                }
                 const already_filled = DonationFunctions.current_orders[title]['materials'][material_name]['filled'] ? DonationFunctions.current_orders[title]['materials'][material_name]['filled'] : 0;
                 DonationFunctions.current_orders[title]['materials'][material_name] = {
                     'qty': material[1],
