@@ -86,6 +86,35 @@ const DonationFunctions = {
 
     /**
      * 
+     */
+    saveDonationIntoFile: () =>{
+        const save_obj = {
+            'orders': DonationFunctions.current_orders,
+            'donors': DonationFunctions.current_donators
+        }
+        fs.writeFile(`${drixnBot.paths['backup']}/donation_backup.json`, save_obj, function(whatever){});
+    },
+
+    /**
+     * 
+     */
+    loadBackup: function(client){
+        if(fs.existsSync(`${drixnBot.paths['backup']}/donation_backup.json`)){
+            try {
+                const data = fs.readFileSync(`${drixnBot.paths['backup']}/donation_backup.json`);
+                if(!data) return false;
+                const backuped_json = JSON.parse(data);
+                DonationFunctions.current_orders = backuped_json.orders;
+                DonationFunctions.current_donators = backuped_json.donors;
+                DonationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']));
+            } catch (err) {
+                    console.error('error when loading backup ', err)
+                }
+            }
+        },
+
+    /**
+     * 
      * @param {*} name 
      */
     deleteOrder: (name) =>{
