@@ -105,7 +105,7 @@ const DonationFunctions = {
             material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
             user = material[2] ? material[2].toLowerCase()[0].toUpperCase() + material[2].slice(1) : false;
 
-            if(title.length && DonationFunctions.current_orders[title]){
+            if(title.length && DonationFunctions.current_orders[title] && DonationFunctions.current_orders[title]['materials'][material_name]){
                 DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
                 // const tmp_donation = DonationFunctions.current_orders[title]['materials'][material_name]['filled'] + material[1];
                 // if(tmp_donation <= DonationFunctions.current_orders[title]['materials'][material_name]['qty']){
