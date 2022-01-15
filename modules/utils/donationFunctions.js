@@ -12,8 +12,8 @@ const DonationFunctions = {
     current_orders: {},
     current_donators: {},
 
-    order_title: '`Fill Orders:`\n',
-    donor_title: '`Donors:`\n',
+    order_title: '>Fill Orders:\n',
+    donor_title: '>Donors:\n',
 
     createOrder: (name, args) =>{
         const title = name.join(' ').trim();
@@ -146,6 +146,7 @@ const DonationFunctions = {
             for(let l =0; l < material_keys.length; l++){
                 compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]} ${material_keys[l]}\n`;
             }
+            compiled_message += '\n';
         }
         return compiled_message
     },
