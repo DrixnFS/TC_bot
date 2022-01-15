@@ -109,13 +109,11 @@ const DonationFunctions = {
             user = material[3] ? material[3].toLowerCase()[0].toUpperCase() + material[3].slice(1) : false;
 
             if(title.length && DonationFunctions.current_orders[title] && DonationFunctions.current_orders[title]['materials'][material_name]){
-                DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
-                // const tmp_donation = DonationFunctions.current_orders[title]['materials'][material_name]['filled'] + material[1];
-                // if(tmp_donation <= DonationFunctions.current_orders[title]['materials'][material_name]['qty']){
-                //     DonationFunctions.current_orders[title]['materials'][material_name]['filled'] = tmp_donation
-                // } else {
-                //     DonationFunctions.current_orders[title]['materials'][material_name]['filled'] = DonationFunctions.current_orders[title]['materials'][material_name]['qty']
-                // }
+                if(DonationFunctions.current_orders[title]['materials'][material_name]['is_stack'] == is_stack) {
+                    DonationFunctions.current_orders[title]['materials'][material_name]['filled'] += parseInt(material[1]);
+                } else {
+                    //TODO: send user message that this wont work cause order expects same type, stack or no stack
+                }
                 DonationFunctions.__updateOrderMessage(title);
             }
 
