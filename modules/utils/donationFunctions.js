@@ -157,7 +157,6 @@ const DonationFunctions = {
                         DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} MUST BE the same type as the Order dictates (stack or no stack)`);
                         return false;
                     }
-                    
                 } else {
                     DonationFunctions.sendDonoMessage(channel);
                     DonationFunctions.sendErrorMessage(channel, `Material ${material_name} donated into order ${title} is not accepted by the Order`);
@@ -189,7 +188,7 @@ const DonationFunctions = {
      * @param {*} name 
      * @param {*} args 
      */
-    editDonate: (name, args) =>{
+    editDonate: (name, args, channel) =>{
         const user_name = name.join(' ').trim();
 
         if(args.length == 1){
@@ -200,7 +199,16 @@ const DonationFunctions = {
             if(user_name && DonationFunctions.current_donators[user_name]) {
                 const key = is_stack ? 'stacks' : 'raw';
                 DonationFunctions.current_donators[user_name][material_name][key] = parseFloat(material[1])
+            } else {
+                console.log('editing non existent user');
+                DonationFunctions.sendDonoMessage(channel);
+                DonationFunctions.sendErrorMessage(channel, `User ${user_name} is not part of Donation list yet`);
             }
+            DonationFunctions.sendDonoMessage(channel);
+        } else {
+            console.log('wrong edit donate input');
+            DonationFunctions.sendDonoMessage(channel);
+            DonationFunctions.sendErrorMessage(channel, `You can only edit one material!`);
         }
     },
 
@@ -249,7 +257,7 @@ const DonationFunctions = {
     },
 
     sendErrorMessage: (channel, string) => {
-        channel.send(`\`\`\`diff\n- ${string} \`\`\``);
+        channel.send(`\n\`\`\`diff\n- ${string} \`\`\``);
     },
 
 }

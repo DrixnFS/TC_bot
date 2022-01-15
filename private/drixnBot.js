@@ -108,8 +108,7 @@ client.on('message', msg => {
                         break;
                     case 'editdonate':
                         if(!args) break;
-                            DonationFunctions.editDonate(sub_args, args);
-                            DonationFunctions.sendDonoMessage(donation_channel);
+                            DonationFunctions.editDonate(sub_args, args, donation_channel);
                         break;
                     case 'deletedonate':
                         if(!args) break;
