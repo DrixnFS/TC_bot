@@ -92,7 +92,7 @@ const DonationFunctions = {
             'orders': DonationFunctions.current_orders,
             'donors': DonationFunctions.current_donators
         }
-        fs.writeFile(`${drixnBot.paths['backup']}/donation_backup.json`, save_obj, function(whatever){});
+        fs.writeFile(`${drixnBot.paths['backup']}/donation_backup.json`, JSON.stringify(save_obj), function(whatever){});
     },
 
     /**
