@@ -12,8 +12,8 @@ const DonationFunctions = {
     current_orders: {},
     current_donators: {},
 
-    order_title: '>Fill Orders:\n',
-    donor_title: '>Donors:\n',
+    order_title: '> Fill Orders:\n',
+    donor_title: '> Donors:\n',
 
     createOrder: (name, args) =>{
         const title = name.join(' ').trim();
