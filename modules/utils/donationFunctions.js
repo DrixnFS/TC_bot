@@ -34,7 +34,6 @@ const DonationFunctions = {
             'materials': materials,
             'message': message
         }
-
     },
 
     /**
@@ -130,6 +129,26 @@ const DonationFunctions = {
 
         } else {
             console.log('wrong donate input');
+        }
+    },
+
+    /**
+     * 
+     * @param {*} name 
+     * @param {*} args 
+     */
+    editDonate: (name, args) =>{
+        const user_name = name.join(' ').trim();
+
+        if(args.length == 1){
+            material = args[0].trim().split(' ');
+            material_name = material[0].toLowerCase()[0].toUpperCase() + material[0].slice(1);
+            is_stack = material[2] && material[2].toLowerCase() == 'yes' ? true : false;
+
+            if(user_name && DonationFunctions.current_donators[user_name]) {
+                const key = is_stack ? 'stacks' : 'raw';
+                DonationFunctions.current_donators[user_name][material_name][key] = material[1]
+            }
         }
     },
 
