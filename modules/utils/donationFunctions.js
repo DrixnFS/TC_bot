@@ -81,7 +81,7 @@ const DonationFunctions = {
         } else {
             console.log('user is a moron and edits non existent order!');
             DonationFunctions.sendDonoMessage(channel);
-            channel.send(`\`\`\`diff -!Cannot edit non existent order: ${title} ! \`\`\``);
+            channel.send(`\`\`\`diff\n- ! Cannot edit non existent order: ${title} ! \`\`\``);
             return false;
         }
     },
