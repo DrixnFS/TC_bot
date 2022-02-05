@@ -18,7 +18,8 @@ const BotFunctions = {
     \n 5. For parameter status you can type 'yes' or 'y' if player is red, if he is blue just type 'no' or 'n'
     \n 6. You can also use 'red' as status for red players and 'blue' status for blue players
     \n Example: .addtokos Peaceleaf red TC
-    \n©DrixnGG & Peaceleaf 2021\`\`\``,
+    \n©DrixnGG & Peaceleaf 2021
+    \n Drixn: We found an error in backup system, bot has been updated and the issue was fixed and made sure its never gonna happend. Sorry for the inconvenience\`\`\``,
 
     /**
      * Session list of all KOS big bois, one big array
@@ -143,8 +144,10 @@ const BotFunctions = {
      */
     saveListIntoFile: function(list){
         let arr = BotFunctions[list].map(item => {return JSON.stringify(item)});
-        let string = arr.join('|');
-        fs.writeFile(`${drixnBot.paths['backup']}/kos_list_backup.txt`, string, function(whatever){});
+        if(arr.length){
+            let string = arr.join('|');
+            fs.writeFile(`${drixnBot.paths['backup']}/kos_list_backup.txt`, string, function(whatever){});
+        }
     },
 
     /**
