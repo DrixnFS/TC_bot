@@ -57,6 +57,7 @@ client.on('message', msg => {
                 //Gets the actual command user wants to invoke
                 const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const command = args.shift().toLowerCase();
+                console.log(`--KOS-list: command ${command} was called by ${msg.member.nickname}--`)
                 switch (command) {
                     case 'addtokos':
                         if(!args) break;
