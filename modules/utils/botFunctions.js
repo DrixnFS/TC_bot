@@ -135,8 +135,6 @@ const BotFunctions = {
                 let arr = data.split('|');
                 let proper_arr = arr.map(item => {return JSON.parse(item)});
                 BotFunctions.kos_list = proper_arr;
-                console.log('--Sending the message to the chanell--')
-                BotFunctions.sendListMessage(client.channels.get(process.env['KOS_CHANNEL_ID']));
                 console.log('--KOS list backup loaded--')
               } catch (err) {
                 console.error('error when loading backup ', err)
