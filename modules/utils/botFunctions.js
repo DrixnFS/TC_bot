@@ -130,6 +130,7 @@ const BotFunctions = {
             try {
                 console.log('--Backup file found, loading backup now...--')
                 const data = fs.readFileSync(`${drixnBot.paths['backup']}/kos_list_backup.txt`, 'utf8');
+                console.log(`--KOS-list backup data: ${data}--`)
                 if(!data) return false;
                 let arr = data.split('|');
                 let proper_arr = arr.map(item => {return JSON.parse(item)});
