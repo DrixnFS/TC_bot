@@ -98,7 +98,7 @@ const DonationFunctions = {
             'orders': DonationFunctions.current_orders,
             'donors': DonationFunctions.current_donators
         }
-        if(Object.keys(save_obj.orders).length || Object.keys(save.obj.donors).length){
+        if(Object.keys(save_obj.orders).length || Object.keys(save_obj.donors).length){
             fs.writeFile(`${drixnBot.paths['backup']}/donation_backup.json`, JSON.stringify(save_obj), function(whatever){});
         }
     },
