@@ -125,14 +125,18 @@ const BotFunctions = {
      * 
      */
     loadBackup: function(client){
+        console.log('--Trying to load KOS-list backup---')
         if(fs.existsSync(`${drixnBot.paths['backup']}/kos_list_backup.txt`)){
             try {
+                console.log('--Backup file found, loading backup now...--')
                 const data = fs.readFileSync(`${drixnBot.paths['backup']}/kos_list_backup.txt`, 'utf8');
                 if(!data) return false;
                 let arr = data.split('|');
                 let proper_arr = arr.map(item => {return JSON.parse(item)});
                 BotFunctions.kos_list = proper_arr;
+                console.log('--Sending the message to the chanell--')
                 BotFunctions.sendListMessage(client.channels.get(process.env['KOS_CHANNEL_ID']));
+                console.log('--KOS list backup loaded--')
               } catch (err) {
                 console.error('error when loading backup ', err)
               }
