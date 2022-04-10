@@ -24,7 +24,7 @@ module.exports = () => {
         const button = new MessageButton()
         button.setCustomId('Killed')
         button.setLabel('Killed')
-        button.setStyle('Danger')
+        button.setStyle('DANGER')
 
         const btn_row = new MessageActionRow()
         btn_row.addComponents(button) 
@@ -34,7 +34,7 @@ module.exports = () => {
         embed.setTitle(boss_timers[boss_key].name)
         embed.setDescription('Spawned')
         
-        msg_arr.append({
+        msg_arr.push({
             timer: boss_timers[boss_key].timer,
             msg: {
                 embeds: [embed],

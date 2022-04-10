@@ -111,7 +111,7 @@ const BotFunctions = {
      * @param {*} channel 
      */
     _deleteMessages: async function(channel, limit = 100){
-        channel.fetchMessages({limit: limit}).then(messages =>{
+        channel.messages.fetch({limit: limit}).then(messages =>{
             if(messages.size > 100){
                 channel.bulkDelete(messages);
                 BotFunctions._deleteMessages(channel);
