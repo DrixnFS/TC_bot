@@ -16,6 +16,7 @@ const config = require(`${drixnBot.paths.private}/config`);
 
 //Gets boss timer messages
 const boss_timers = require(`${drixnBot.paths.utils}/MO_boss_embeds.js`)()
+const boss_timer_stack = require(`${drixnBot.paths.utils}/MO_boss_stack.js`)
 
 client.on("ready", () => {
     // Bot Inicialization
@@ -35,13 +36,17 @@ client.on("ready", () => {
     //MO Boss timers
     const boss_timers_channel = client.channels.cache.get(process.env['BOSS_TIMER_CHANNEL_ID'].toString())
     if (boss_timers_channel){
+        boss_timer_stack.createDefaultTimers(boss_timers_channel, boss_timers)
+
         BotFunctions._deleteMessages(boss_timers_channel);
-        boss_timers.map((timer) => 
-            boss_timers_channel.send(timer.msg)
-        )
     }
 });
 
+client.on('interactionCreate', interaction => {
+	if (!interaction.isButton()) return;
+    boss_timer_stack.timerBtnCb(interaction.message.embeds[0].title)
+    interaction.deferUpdate()
+});
 
 client.on("guildCreate", guild => {
     // Bot joined a server
