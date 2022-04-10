@@ -17,6 +17,7 @@ module.exports = async (current_embed, cached_msg, timer) =>{
 
         current_timer = current_timer - 60
         if(current_timer <= 0){
+            embed.setDescription(`Spawned`)
             clearInterval(update_interval)
         }
     }, 60000)
