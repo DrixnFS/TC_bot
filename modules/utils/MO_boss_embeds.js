@@ -47,7 +47,7 @@ module.exports = () => {
         const button = new MessageButton()
         button.setCustomId(boss_key + '_Timer')
         button.setLabel('Timer')
-        button.setStyle('DANGER')
+        button.setStyle('PRIMARY')
 
         const btn_row = new MessageActionRow()
         btn_row.addComponents(button) 
@@ -55,7 +55,7 @@ module.exports = () => {
         const embed = new MessageEmbed()
         embed.setColor('#0099ff')
         embed.setTitle(boss_timers[boss_key].name)
-        embed.setDescription('Spawned')
+        embed.setFooter({ text: 'Spawned', iconURL: 'https://cdn.discordapp.com/icons/780039748025843733/a6231ab72eacd2ae02558a95c6e3d593.webp?size=96' });
         embed.setThumbnail(boss_timers[boss_key].img)
         
         msg_arr.push({
