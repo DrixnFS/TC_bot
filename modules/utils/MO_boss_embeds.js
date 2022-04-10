@@ -22,8 +22,8 @@ module.exports = () => {
 
     Object.keys(boss_timers).map((boss_key) => {
         const button = new MessageButton()
-        button.setCustomId('Killed')
-        button.setLabel('Killed')
+        button.setCustomId(boss_key + '_Timer')
+        button.setLabel('Timer')
         button.setStyle('DANGER')
 
         const btn_row = new MessageActionRow()
