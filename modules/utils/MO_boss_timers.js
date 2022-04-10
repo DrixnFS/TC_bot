@@ -12,9 +12,10 @@ module.exports = async (current_embed, cached_msg, timer) =>{
 
     let current_timer = timer
     const update_interval = setInterval(() => {
+        current_timer = current_timer - 60
+
         embed.setFooter({ text: `${current_timer / 60} minutes untill spawn`, iconURL: current_embed.footer.iconURL });
 
-        current_timer = current_timer - 60
         if(current_timer <= 0){
             embed.setColor('#0099ff')
             embed.setFooter({ text: `Spawned`, iconURL: current_embed.footer.iconURL });
