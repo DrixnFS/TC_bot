@@ -114,7 +114,7 @@ const DonationFunctions = {
                 const backuped_json = JSON.parse(data);
                 DonationFunctions.current_orders = backuped_json.orders;
                 DonationFunctions.current_donators = backuped_json.donors;
-                DonationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']));
+                DonationFunctions.sendDonoMessage(client.channels.cache.get(process.env['GOAL_CHANNEL_ID']));
             } catch (err) {
                     console.error('error when loading backup ', err)
                 }
