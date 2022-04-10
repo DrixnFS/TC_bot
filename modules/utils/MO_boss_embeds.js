@@ -21,18 +21,18 @@ module.exports = () => {
     const msg_arr = []
 
     Object.keys(boss_timers).map((boss_key) => {
+        const button = new MessageButton()
+        button.setCustomId('Killed')
+        button.setLabel('Killed')
+        button.setStyle('Danger')
+
         const btn_row = new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                .setCustomId('Killed')
-                .setLabel('Killed')
-                .setStyle('Danger')
-            ) 
+        btn_row.addComponents(button) 
         
         const embed = new MessageEmbed()
-                .setColor('#0099ff')
-                .setTitle(boss_timers[boss_key].name)
-                .setDescription('Spawned')
+        embed.setColor('#0099ff')
+        embed.setTitle(boss_timers[boss_key].name)
+        embed.setDescription('Spawned')
         
         msg_arr.append({
             timer: boss_timers[boss_key].timer,
@@ -43,5 +43,5 @@ module.exports = () => {
         })
     })
 
-        return msg_arr
+    return msg_arr
 }
