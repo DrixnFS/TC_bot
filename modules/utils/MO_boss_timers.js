@@ -12,7 +12,7 @@ module.exports = async (current_embed, cached_msg, timer) =>{
 
     let current_timer = timer
     const update_interval = setInterval(() => {
-        embed.setFooter({ text: `${timer / 60} minutes untill spawn`, iconURL: current_embed.footer.iconURL });
+        embed.setFooter({ text: `${current_timer / 60} minutes untill spawn`, iconURL: current_embed.footer.iconURL });
 
         current_timer = current_timer - 60
         if(current_timer <= 0){
