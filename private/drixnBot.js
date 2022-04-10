@@ -13,7 +13,7 @@ require('dotenv').config({
 const config = require(`${drixnBot.paths.private}/config`);
 
 //Gets boss timer messages
-const boss_timers = require(`${drixnBot.paths.utils}/MO_boss_embeds.js`)
+const boss_timers = require(`${drixnBot.paths.utils}/MO_boss_embeds.js`)()
 
 client.on("ready", () => {
     // Bot Inicialization
