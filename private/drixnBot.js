@@ -33,8 +33,8 @@ client.on("ready", () => {
     //MO Boss timers
     console.log('boss timers?', boss_timers)
     const boss_timers_channel = client.channels.get(process.env['BOSS_TIMER_CHANNEL_ID'].toString())
-    console.log('chanell?', boss_timers_channel)
     if (boss_timers_channel){
+        console.log('boss timers?', boss_timers)
         BotFunctions._deleteMessages(boss_timers_channel);
         boss_timers.map((timer) => 
             boss_timers_channel.send(timer.msg)
