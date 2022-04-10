@@ -12,6 +12,9 @@ require('dotenv').config({
 //Inicialization of main Bot's config
 const config = require(`${drixnBot.paths.private}/config`);
 
+//Gets boss timer messages
+const boss_timers = require(`${drixnBot.paths.utils}/MO_boss_embeds.js`)
+
 client.on("ready", () => {
     // Bot Inicialization
     console.log(`Bot has started, with ${client.users.size} users, in ${client.channels.size} channels of ${client.guilds.size} servers.`);
@@ -26,6 +29,17 @@ client.on("ready", () => {
     BotFunctions.sendListMessage(client.channels.get(process.env['KOS_CHANNEL_ID']));
     DonationFunctions.loadBackup(client);
     DonationFunctions.sendDonoMessage(client.channels.get(process.env['GOAL_CHANNEL_ID']))
+
+    //MO Boss timers
+    console.log('boss timers?', boss_timers)
+    const boss_timers_channel = client.channels.get(process.env['BOSS_TIMER_CHANNEL_ID'].toString())
+    console.log('chanell?', boss_timers_channel)
+    if (boss_timers_channel){
+        BotFunctions._deleteMessages(boss_timers_channel);
+        boss_timers.map((timer) => 
+            boss_timers_channel.send(timer.msg)
+        )
+    }
 });
 
 
