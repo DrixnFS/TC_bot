@@ -30,7 +30,7 @@ module.exports = BossTimer = {
                 embed.setFooter({ text: `${current_timer / 60} minutes untill spawn. Died at:`, iconURL: current_embed.footer.iconURL });
             }
             cached_msg.edit({embeds: [embed]})
-        }, 2000)
+        }, 60000)
 
         active_intervals[current_embed.title] = update_interval
     },

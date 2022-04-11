@@ -43,6 +43,7 @@ module.exports = BossStack = {
             embed.setThumbnail(active_boss_intervals[key].embed_msg.thumbnail.url)
             embed.setColor('#0099ff')
             embed.setFooter({ text: `Spawned`, iconURL: active_boss_intervals[key].embed_msg.footer.iconURL });
+            embed.setTimestamp()
 
             active_boss_intervals[key].cached_msg.edit({embeds: [embed]})
         }
