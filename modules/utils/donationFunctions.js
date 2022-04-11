@@ -107,14 +107,17 @@ const DonationFunctions = {
      * 
      */
     loadBackup: function(client){
+        console.log('--DONATION list backup loading started --')
         if(fs.existsSync(`${drixnBot.paths['backup']}/donation_backup.json`)){
             try {
                 const data = fs.readFileSync(`${drixnBot.paths['backup']}/donation_backup.json`);
                 if(!data) return false;
                 const backuped_json = JSON.parse(data);
+                console.log('--DONATION list parsed data: ', backuped_json)
                 DonationFunctions.current_orders = backuped_json.orders;
                 DonationFunctions.current_donators = backuped_json.donors;
                 DonationFunctions.sendDonoMessage(client.channels.cache.get(process.env['GOAL_CHANNEL_ID']));
+                console.log('--DONATION list message sent. Backup is loaded now. --')
             } catch (err) {
                     console.error('error when loading backup ', err)
                 }
