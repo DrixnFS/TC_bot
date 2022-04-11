@@ -4,7 +4,7 @@ const DonationFunctions = require('../modules/utils/donationFunctions.js');
 
 const { Client, Intents } = require('discord.js');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],  allowedMentions: { parse: ['roles'], repliedUser: false } });
 
 //setup of process variables
 require('dotenv').config({
@@ -16,7 +16,10 @@ const config = require(`${drixnBot.paths.private}/config`);
 
 //Gets boss timer messages
 const boss_timers = require(`${drixnBot.paths.utils}/MO_boss_embeds.js`)()
-const boss_timer_stack = require(`${drixnBot.paths.utils}/MO_boss_stack.js`)
+const BossStack = require(`${drixnBot.paths.utils}/MO_boss_stack.js`)
+const BossPinger = require(`${drixnBot.paths.utils}/MO_boss_pinger.js`)
+const BossRole = require(`${drixnBot.paths.utils}/MO_boss_role.js`)
+
 
 client.on("ready", () => {
     // Bot Inicialization
@@ -36,15 +39,29 @@ client.on("ready", () => {
     //MO Boss timers
     const boss_timers_channel = client.channels.cache.get(process.env['BOSS_TIMER_CHANNEL_ID'].toString())
     if (boss_timers_channel){
-        boss_timer_stack.createDefaultTimers(boss_timers_channel, boss_timers)
-
         BotFunctions._deleteMessages(boss_timers_channel);
+
+        BossStack.createDefaultTimers(boss_timers_channel, boss_timers)
+        BossRole.createEmbed(boss_timers_channel)
     }
 });
 
 client.on('interactionCreate', interaction => {
 	if (!interaction.isButton()) return;
-    boss_timer_stack.timerBtnCb(interaction.message.embeds[0].title)
+    if(interaction.customId != 'boss_dead_btn' && interaction.customId != 'boss_alive_btn' && interaction.customId  != 'boss_role_yes' && interaction.customId != 'boss_role_no') return;
+    
+    if(interaction.customId == 'boss_dead_btn') {
+        BossStack.timerBtnCb(interaction.message.embeds[0].title, client, BossStack)
+        BossPinger.sendDeadBtnClickPing(client, BossStack, interaction.message.embeds[0].title, interaction.user)
+    }
+    if(interaction.customId == 'boss_alive_btn') {
+        BossStack.aliveBtnCb(interaction.message.embeds[0].title)
+        BossPinger.sendAliveBtnClickPing(client, BossStack, interaction.message.embeds[0].title, interaction.user)
+    }
+
+    if(interaction.customId  == 'boss_role_yes') BossRole.addUserRole(interaction.member, interaction.message)
+    if(interaction.customId  == 'boss_role_no') BossRole.removeUserRole(interaction.member, interaction.message)
+
     interaction.deferUpdate()
 });
 

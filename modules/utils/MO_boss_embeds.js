@@ -44,19 +44,26 @@ module.exports = () => {
     const msg_arr = []
 
     Object.keys(boss_timers).map((boss_key) => {
-        const button = new MessageButton()
-        button.setCustomId(boss_key + '_Timer')
-        button.setLabel('Timer')
-        button.setStyle('PRIMARY')
+        const alive_btn = new MessageButton()
+            .setCustomId('boss_alive_btn')
+            .setLabel('Alive')
+            .setStyle('SUCCESS')
+
+        const dead_btn = new MessageButton()
+            .setCustomId('boss_dead_btn')
+            .setLabel('Dead')
+            .setStyle('DANGER')
 
         const btn_row = new MessageActionRow()
-        btn_row.addComponents(button) 
+            .addComponents(alive_btn) 
+            .addComponents(dead_btn) 
         
         const embed = new MessageEmbed()
         embed.setColor('#0099ff')
         embed.setTitle(boss_timers[boss_key].name)
         embed.setFooter({ text: 'Spawned', iconURL: 'https://cdn.discordapp.com/icons/780039748025843733/a6231ab72eacd2ae02558a95c6e3d593.webp?size=96' });
         embed.setThumbnail(boss_timers[boss_key].img)
+        embed.setTimestamp()
         
         msg_arr.push({
             name: boss_timers[boss_key].name,
