@@ -34,7 +34,6 @@ client.on("ready", () => {
     BotFunctions.loadBackup(client);
     BotFunctions.sendListMessage(client.channels.cache.get(process.env['KOS_CHANNEL_ID']));
     DonationFunctions.loadBackup(client);
-    DonationFunctions.sendDonoMessage(client.channels.cache.get(process.env['GOAL_CHANNEL_ID']))
 
     //MO Boss timers
     const boss_timers_channel = client.channels.cache.get(process.env['BOSS_TIMER_CHANNEL_ID'].toString())

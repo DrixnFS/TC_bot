@@ -121,7 +121,9 @@ const DonationFunctions = {
             } catch (err) {
                     console.error('error when loading backup ', err)
                 }
-            }
+        } else {
+            DonationFunctions.sendDonoMessage(client.channels.cache.get(process.env['GOAL_CHANNEL_ID']));
+        }
         },
 
     /**
