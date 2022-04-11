@@ -268,6 +268,7 @@ const DonationFunctions = {
      * 
      */
     sendDonoMessage: (channel) =>{
+        console.log('--DONATION list sending dono message now--')
         BotFunctions.clearChannell(channel);
         channel.send(DonationFunctions.getDonationMessage());
     },
