@@ -89,7 +89,7 @@ client.on('messageCreate', msg => {
         //check if the current channell is supported, if so saves it if not set null so bot ignores the commands    
         const kos_channel = msg.channel.id === process.env['KOS_CHANNEL_ID'] ? msg.channel : null;
         if(kos_channel){
-            if(msg.member.roles.some(r=>process.env['KOS_ACCESS_ROLES'].split(',').includes(r.id))){
+            if(msg.member.roles.cache.some(r=>process.env['KOS_ACCESS_ROLES'].split(',').includes(r.id))){
                 //Gets the actual command user wants to invoke
                 const args = msg.content.slice(config.prefix.length).trim().split(/ +/g);
                 const command = args.shift().toLowerCase();
@@ -121,7 +121,7 @@ client.on('messageCreate', msg => {
         }
         const donation_channel = msg.channel.id === process.env['GOAL_CHANNEL_ID'] ? msg.channel : null;
         if(donation_channel){
-            if(msg.member.roles.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
+            if(msg.member.roles.cache.some(r=>process.env['GOAL_ACCESS_ROLES'].split(',').includes(r.id))){
                 const args = msg.content.slice(config.prefix.length).trim().split(',')
                 const sub_args = args.shift().split(/ +/g)
                 const command = sub_args.shift().trim().toLowerCase();
