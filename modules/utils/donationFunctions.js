@@ -242,6 +242,7 @@ const DonationFunctions = {
      * 
      */
     getDonationMessage: () =>{
+        const message_arr = []
         let compiled_message = '';
         compiled_message += `${DonationFunctions.order_title}\n`;
         const order_keys = Object.keys(DonationFunctions.current_orders);
@@ -250,27 +251,40 @@ const DonationFunctions = {
         }
         compiled_message += `${DonationFunctions.donor_title}\n`;
 
-        const donor_messages = []
         const user_keys = Object.keys(DonationFunctions.current_donators);
         for(let i = 0; i < user_keys.length; i++){
-            let tmp_str = ''
-            tmp_str += `__${user_keys[i]}__\n`;
+            const user_msg = `__${user_keys[i]}__\n`
+            if(compiled_message.length <= 1500) {
+                compiled_message += user_msg
+            } else {
+                message_arr.push(compiled_message)
+                compiled_message = user_msg
+            } 
             const material_keys = Object.keys(DonationFunctions.current_donators[user_keys[i]]);
             for(let l =0; l < material_keys.length; l++){
                 if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] > 0){
-                    tmp_str += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
+                    const stack_msg = `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
+                    if(compiled_message.length <= 1500) {
+                        compiled_message += stack_msg
+                    } else {
+                        message_arr.push(compiled_message);
+                        compiled_message = stack_msg
+                    }
                 }
                 if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] > 0) {
-                    tmp_str += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
+                    const raw_msg = `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
+                    if(compiled_message.length <= 1500) {
+                        compiled_message += raw_msg
+                    } else {
+                        message_arr.push(compiled_message)
+                        compiled_message = raw_msg
+                    } 
                 }
             }
-            tmp_str += '\n';
-            donor_messages.push(tmp_str)
+            compiled_message += '\n';
+            message_arr.push(compiled_message)
         }
-        return {
-            header_msg: compiled_message,
-            user_messages: donor_messages
-        }
+        return message_arr
     },
 
     /**
@@ -280,9 +294,8 @@ const DonationFunctions = {
         console.log('--DONATION list sending dono message now--')
         BotFunctions.clearChannell(channel);
         const messages = DonationFunctions.getDonationMessage();
-        channel.send(messages.header_msg);
-        for(let i = 0 ; i < messages.user_messages.length; i++){
-            channel.send(messages.user_messages[i])
+        for(let i = 0 ; i < messages.length; i++){
+            channel.send(messages[i])
         }
     },
 
