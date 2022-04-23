@@ -264,7 +264,7 @@ const DonationFunctions = {
                     tmp_str += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
                 }
             }
-            // tmp_str += '\n';
+            tmp_str += '\n';
             donor_messages.push(tmp_str)
         }
         return {
