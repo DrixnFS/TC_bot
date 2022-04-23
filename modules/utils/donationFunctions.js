@@ -280,7 +280,7 @@ const DonationFunctions = {
         console.log('--DONATION list sending dono message now--')
         BotFunctions.clearChannell(channel);
         const messages = DonationFunctions.getDonationMessage();
-        channel.send(messages.donor_messages);
+        channel.send(messages.header_msg);
         for(let i = 0 ; i < messages.user_messages.length; i++){
             channel.send(messages.user_messages[i])
         }
