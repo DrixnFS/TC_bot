@@ -249,21 +249,28 @@ const DonationFunctions = {
             compiled_message += `${DonationFunctions.current_orders[order_keys[i]].message}\n`
         }
         compiled_message += `${DonationFunctions.donor_title}\n`;
+
+        const donor_messages = []
         const user_keys = Object.keys(DonationFunctions.current_donators);
         for(let i = 0; i < user_keys.length; i++){
-            compiled_message += `__${user_keys[i]}__\n`;
+            let tmp_str = ''
+            tmp_str += `__${user_keys[i]}__\n`;
             const material_keys = Object.keys(DonationFunctions.current_donators[user_keys[i]]);
             for(let l =0; l < material_keys.length; l++){
                 if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks'] > 0){
-                    compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
+                    tmp_str += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['stacks']} Stacks of ${material_keys[l]}\n`;
                 }
                 if(DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] && DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw'] > 0) {
-                    compiled_message += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
+                    tmp_str += `${DonationFunctions.current_donators[user_keys[i]][material_keys[l]]['raw']} ${material_keys[l]}\n`;
                 }
             }
-            compiled_message += '\n';
+            // tmp_str += '\n';
+            donor_messages.push(tmp_str)
         }
-        return compiled_message
+        return {
+            header_msg: compiled_message,
+            user_messages: donor_messages
+        }
     },
 
     /**
@@ -272,7 +279,11 @@ const DonationFunctions = {
     sendDonoMessage: (channel) =>{
         console.log('--DONATION list sending dono message now--')
         BotFunctions.clearChannell(channel);
-        channel.send(DonationFunctions.getDonationMessage());
+        const messages = DonationFunctions.getDonationMessage();
+        channel.send(messages.donor_messages);
+        for(let i = 0 ; i < messages.user_messages.length; i++){
+            channel.send(messages.user_messages[i])
+        }
     },
 
     sendErrorMessage: (channel, string) => {
